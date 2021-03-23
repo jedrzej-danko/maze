@@ -21,7 +21,8 @@ class EntryTile extends Corridor
 
     public function description(): string
     {
-        return "This is labirynt entry";
+        return "This is a labirynt entry. You see a large gate, carved out of rock. The portal is decorated with skulls and bones motifs. " .
+            "The gate is open. Darkness flows from under the mountain";
     }
 
 

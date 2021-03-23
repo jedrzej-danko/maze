@@ -30,6 +30,16 @@ abstract class Tile
         }
     }
 
+    /**
+     * @return Connector[]
+     */
+    public function getDoors(): array
+    {
+        return array_filter($this->doors, fn($d) => null !== $d);
+    }
+
+
+
     abstract public function description() : string;
 
     abstract public function possibleExits() : array;

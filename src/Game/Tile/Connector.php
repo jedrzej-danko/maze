@@ -4,6 +4,8 @@
 namespace App\Game\Tile;
 
 
+use App\Game\Directions;
+
 abstract class Connector
 {
     private Tile $tile1;
@@ -43,4 +45,10 @@ abstract class Connector
     }
 
     abstract public function availableTargets() : array;
+
+    public function description(string|Directions $direction) : string
+    {
+        return "A connector directed <passage>$direction</passage>";
+    }
+
 }

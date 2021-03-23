@@ -4,6 +4,7 @@
 namespace App\Application\Query;
 
 
+use App\Application\Dto\RoomDescription;
 use App\Application\GamePersistenceInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Messenger\HandleTrait;
@@ -32,6 +33,7 @@ class CurrentRoomQueryHandler implements MessageHandlerInterface
         $game = $this->persistence->getGame();
         $board = $game->getBoard();
         $currentTile = $board->getTileAt($board->getCurrentPosition());
-        return $currentTile->description();
+
+        return new RoomDescription($currentTile->description(), $currentTile->getDoors());
     }
 }
