@@ -4,19 +4,25 @@
 namespace App\Infrastructure;
 
 
-use App\Application\GamePersistenceInterface;
-use App\Game\Game;
+use App\Game\GamePersistenceInterface;
+use App\Rules\Entity\GameState;
 
 class StaticGamePersistence implements GamePersistenceInterface
 {
-    private static Game $game;
+    private static GameState $game;
 
-    public function getGame(): Game
+    public function stateExists(): bool
+    {
+        return self::$game !== null;
+    }
+
+
+    public function getGame(): GameState
     {
         return self::$game;
     }
 
-    public function persist(Game $game)
+    public function persist(GameState $game)
     {
         self::$game = $game;
     }

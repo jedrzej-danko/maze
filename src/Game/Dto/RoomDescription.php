@@ -1,10 +1,11 @@
 <?php
 
 
-namespace App\Application\Dto;
+namespace App\Game\Dto;
 
 
-use App\Game\Tile\Connector;
+use App\Rules\Entity\Tile\Connector;
+use App\Rules\ValueObject\Position;
 use Webmozart\Assert\Assert;
 
 class RoomDescription
@@ -13,6 +14,7 @@ class RoomDescription
 
     public function __construct(
         private string $description,
+        private Position $position,
         array $exits
     )
     {
@@ -40,6 +42,16 @@ class RoomDescription
     {
         return $this->description;
     }
+
+    /**
+     * @return Position
+     */
+    public function getPosition(): Position
+    {
+        return $this->position;
+    }
+
+
 
 
 }

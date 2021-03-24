@@ -1,11 +1,11 @@
 <?php
 
 
-namespace App\Application\Query;
+namespace App\Game\Query;
 
 
-use App\Application\Dto\RoomDescription;
-use App\Application\GamePersistenceInterface;
+use App\Game\Dto\RoomDescription;
+use App\Game\GamePersistenceInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -31,9 +31,8 @@ class CurrentRoomQueryHandler implements MessageHandlerInterface
     public function __invoke(CurrentRoomQuery $query)
     {
         $game = $this->persistence->getGame();
-        $board = $game->getBoard();
-        $currentTile = $board->getTileAt($board->getCurrentPosition());
+        $currentTile = $game->getCurrentTile();
 
-        return new RoomDescription($currentTile->description(), $currentTile->getDoors());
+        return new RoomDescription($currentTile->description(), $game->currentPosition(), $currentTile->getDoors());
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
 
-namespace App\Game\Tile;
+namespace App\Rules\Entity\Tile;
 
+
+use App\Rules\ValueObject\Direction;
 
 abstract class Tile
 {
@@ -30,12 +32,28 @@ abstract class Tile
         }
     }
 
+    public function setDoorAtDirection(Direction $direction, Connector $connector)
+    {
+        if ($connector->getTile1() !== $this) {
+            $connector->setTile2($this);
+        }
+        $this->doors[(string) $direction] = $connector;
+    }
+
     /**
      * @return Connector[]
      */
     public function getDoors(): array
     {
         return array_filter($this->doors, fn($d) => null !== $d);
+    }
+
+    public function getDoorDirectedTo(Direction $direction) : ?Connector
+    {
+        if ($this->doors[(string) $direction]) {
+            return $this->doors[(string) $direction];
+        }
+        return null;
     }
 
 

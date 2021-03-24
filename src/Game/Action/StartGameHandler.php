@@ -1,13 +1,14 @@
 <?php
 
 
-namespace App\Application\Command;
+namespace App\Game\Action;
 
 
-use App\Application\GamePersistenceInterface;
-use App\Game\Board;
-use App\Game\Game;
-use App\Game\Tile\EntryTile;
+use App\Game\GamePersistenceInterface;
+
+use App\Rules\Entity\Board;
+use App\Rules\Entity\GameState;
+use App\Rules\Entity\Tile\EntryTile;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 class StartGameHandler implements MessageHandlerInterface
@@ -26,7 +27,7 @@ class StartGameHandler implements MessageHandlerInterface
     public function __invoke(StartGame $command)
     {
         $board = new Board(new EntryTile());
-        $game = new Game($board);
+        $game = new GameState($board);
 
         $this->persistence->persist($game);
     }

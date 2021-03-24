@@ -1,10 +1,12 @@
 <?php
 
 
-namespace App\Game\Tile;
+namespace App\Rules\Entity\Tile;
 
 
-use App\Game\Directions;
+
+use App\Rules\Exception\ConnectorException;
+use App\Rules\ValueObject\Direction;
 
 abstract class Connector
 {
@@ -18,6 +20,7 @@ abstract class Connector
     public function __construct(Tile $tile1)
     {
         $this->tile1 = $tile1;
+        $this->tile2 = null;
     }
 
     /**
@@ -44,9 +47,21 @@ abstract class Connector
         return $this->tile2;
     }
 
+    public function getOtherEnd(Tile $tile) : ?Tile
+    {
+        if ($tile === $this->tile1) {
+            return $this->tile2;
+        }
+        if ($tile === $this->tile2) {
+            return $this->tile1;
+        }
+
+        throw ConnectorException::illegalDoors();
+    }
+
     abstract public function availableTargets() : array;
 
-    public function description(string|Directions $direction) : string
+    public function description(string|Direction $direction) : string
     {
         return "A connector directed <passage>$direction</passage>";
     }

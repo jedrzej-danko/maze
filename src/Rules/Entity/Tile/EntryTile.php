@@ -1,10 +1,11 @@
 <?php
 
 
-namespace App\Game\Tile;
+namespace App\Rules\Entity\Tile;
 
 
-use App\Game\Directions;
+
+use App\Rules\ValueObject\Direction;
 
 class EntryTile extends Corridor
 {
@@ -16,7 +17,7 @@ class EntryTile extends Corridor
     public function __construct()
     {
         parent::__construct();
-        $this->doors[(string) Directions::north()] = new Passage($this);
+        $this->doors[(string) Direction::north()] = new Passage($this);
     }
 
     public function description(): string

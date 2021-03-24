@@ -1,10 +1,14 @@
 <?php
 
 
-namespace App\Game;
+namespace App\Rules\Entity;
 
 
-use App\Game\Tile\Tile;
+
+use App\Rules\Entity\Tile\Tile;
+use App\Rules\Exception\BoardException;
+use App\Rules\TileFactory;
+use App\Rules\ValueObject\Position;
 
 class Board
 {
@@ -25,9 +29,10 @@ class Board
 
     public function setCurrentPosition(Position $position)
     {
-        if ($this->getTileAt($position)) {
-            $this->currentPosition = $position;
+        if (!$this->getTileAt($position)) {
+            throw BoardException::emptyPosition($position);
         }
+        $this->currentPosition = $position;
     }
 
     public function getTileAt(Position $position) : ?Tile
@@ -37,6 +42,19 @@ class Board
         }
         return null;
     }
+
+    public function putTileAt(Position $position, Tile $tile)
+    {
+        $this->map[$position->getX()][$position->getY()] = $tile;
+    }
+
+    public function createTileAt(Position $position, TileFactory $factory)
+    {
+        $tile = $factory->makeTile($this, $position);
+        $this->putTileAt($position, $tile);
+    }
+
+
 
 
 }

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Application\Query;
+namespace App\Game\Query;
 
 
 class CurrentRoomQuery

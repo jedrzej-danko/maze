@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Game\Tile;
+namespace App\Rules\Entity\Tile;
 
 
 class Room extends Tile
